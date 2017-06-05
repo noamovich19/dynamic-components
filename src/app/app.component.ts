@@ -1,37 +1,33 @@
 import {Component} from '@angular/core';
-import HelloWorldComponent from "./hello-world-component";
-import WorldHelloComponent from "./world-hello-component";
+import {Subject} from "rxjs";
+
 
 @Component({
   selector: 'app-root',
   template: `
     <div>
       <h2>Lets dynamically create some components!</h2>
-      <button (click)="createHelloWorldComponent()">Create Hello World</button>
-      <button (click)="createWorldHelloComponent()">Create World Hello</button>
-      <dynamic-component [componentData]="componentData"></dynamic-component>
+      <dynamic-component 
+      *ngFor="let componentData of componentList" [componentData]="componentData"
+      [notifyAllComponents]="eventSubject"
+      >
+      </dynamic-component>
     </div>
   `,
 
 })
 export class AppComponent {
-  componentData = null;
+  componentList = [];
+  eventSubject: Subject<any> = new Subject();
 
-  createHelloWorldComponent() {
-    this.componentData = {
-      component: HelloWorldComponent,
-      inputs: {
-        showNum: 9
-      }
-    };
-  }
+  constructor() {
+    this.componentList = [
+      {component: "view1", inputs: {showNum: 9}},
+      {component: "view1", inputs: {showNum: 1313}},
+      {component: "view2", inputs: {name: "hello"}},
+      {component: "view2", inputs: {name: "world"}},
+      {component: "view2", inputs: {name: "world!!"}},
+    ]
 
-  createWorldHelloComponent() {
-    this.componentData = {
-      component: WorldHelloComponent,
-      inputs: {
-        showNum: 2
-      }
-    };
   }
 }

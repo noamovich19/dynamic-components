@@ -5,16 +5,14 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import DynamicComponent from "./dynamic-component";
-import WorldHelloComponent from "./world-hello-component";
-import HelloWorldComponent from "./hello-world-component";
+import {View1Module} from "./view1/view1.module";
+import {View2Module} from "./view2/view2.module";
 
 @NgModule({
-  declarations: [AppComponent,
-    HelloWorldComponent,
-    WorldHelloComponent,
-    DynamicComponent]
-  ,
+  declarations: [AppComponent, DynamicComponent ],
   imports: [
+    View1Module,
+    View2Module,
     BrowserModule,
     FormsModule,
     HttpModule

@@ -1,51 +1,60 @@
-import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver} from '@angular/core';
-import HelloWorldComponent from './hello-world-component';
-import WorldHelloComponent from './world-hello-component';
+import {
+  Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver,
+  Output, EventEmitter
+} from '@angular/core';
+import {View1Component} from "./view1/view1.component";
+import {BaseDynamicComponent} from "./BaseDynamicComponent";
+import {View2Component} from "./view2/view2.component";
+import {Subject} from "rxjs";
+
 
 @Component({
   selector: 'dynamic-component',
-  entryComponents: [HelloWorldComponent, WorldHelloComponent], // Reference to the components must be here in order to dynamically create them
+  entryComponents: [View1Component , View2Component],
   template: `
     <div #dynamicComponentContainer></div>
   `,
 })
 export default class DynamicComponent {
+  @Input() notifyAllComponents :Subject<any>;
+
   currentComponent = null;
 
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
-  
-  // component: Class for the component you want to create
-  // inputs: An object with key/value pairs mapped to input name/input value
+
   @Input() set componentData(data: {component: any, inputs: any }) {
     if (!data) {
       return;
     }
 
-    // Inputs need to be in the following format to be resolved properly
-    let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]};});
-    let resolvedInputs = ReflectiveInjector.resolve(inputProviders);
-    
-    // We create an injector out of the data we want to pass down and this components injector
-    let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.dynamicComponentContainer.parentInjector);
-    
-    // We create a factory out of the component we want to create
-    let factory = this.resolver.resolveComponentFactory(data.component);
-    
-    // We create the component using the factory and the injector
+
+    let injector = ReflectiveInjector.fromResolvedProviders([]);
+    let factory = this.resolver.resolveComponentFactory(this.getComponent(data.component))
+
     let component = factory.create(injector);
-    
-    // We insert the component into the dom container
+    let instance = <BaseDynamicComponent> component.instance;
+    instance.context = data.inputs;
+    instance.eventEmitter.subscribe(event=> {this.notifyAllComponents.next(event)});
+    this.notifyAllComponents.subscribe(instance.onEvent.bind(instance))
+
     this.dynamicComponentContainer.insert(component.hostView);
-    
-    // We can destroy the old component is we like by calling destroy
+
     if (this.currentComponent) {
       this.currentComponent.destroy();
     }
-    
+
     this.currentComponent = component;
   }
-  
+
+  getComponent(componentName : string) {
+    let componentNameToComponent = {
+      "view1": View1Component,
+      "view2": View2Component,
+    }
+    return componentNameToComponent[componentName];
+  }
+
   constructor(private resolver: ComponentFactoryResolver) {
-    
+
   }
 }
