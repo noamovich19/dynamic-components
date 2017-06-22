@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseDynamicComponent} from "../BaseDynamicComponent";
-import {ButtonClickEvent} from "../events";
 import {Router} from "@angular/router";
+import {ComponentsEvents} from "../ComponenetsEvents";
 
 
 class Compponent1Data {
@@ -31,6 +31,6 @@ export class View2Component extends BaseDynamicComponent implements OnInit {
 
 
   onClick() {
-    this.eventEmitter.emit(new ButtonClickEvent("button click!!"))
+    ComponentsEvents.buttonClicked.next("view2 was clicked!")
   }
 }

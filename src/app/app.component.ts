@@ -8,9 +8,7 @@ import {Subject} from "rxjs";
     <div>
       <h2>Lets dynamically create some components!</h2>
        <dynamic-component
-          *ngFor="let componentData of componentList" [componentData]="componentData"
-          [notifyComponents]="eventSubject"
-   >
+          *ngFor="let componentData of componentList" [componentData]="componentData">
    </dynamic-component>
     </div>
   `,
@@ -18,8 +16,6 @@ import {Subject} from "rxjs";
 })
 export class AppComponent {
   componentList = [];
-  eventSubject: Subject<any> = new Subject();
-
   /*
    * <dynamic-component
    *ngFor="let componentData of componentList" [componentData]="componentData"
