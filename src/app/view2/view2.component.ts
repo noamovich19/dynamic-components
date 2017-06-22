@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseDynamicComponent} from "../BaseDynamicComponent";
+import {ButtonClickEvent} from "../events";
+import {Router} from "@angular/router";
 
 
 class Compponent1Data {
@@ -10,13 +12,15 @@ class Compponent1Data {
 @Component({
   selector: 'view2',
   templateUrl: 'view2.component.html',
-  styleUrls: ['view2.component.css']
+  styleUrls: ['view2.component.css'],
+  providers: [Router]
 })
 export class View2Component extends BaseDynamicComponent implements OnInit {
 
   data
 
   constructor() {
+
     super()
   }
 
@@ -25,13 +29,8 @@ export class View2Component extends BaseDynamicComponent implements OnInit {
     console.log(this.data.name)
   }
 
-  onEvent(enent: any) {
-
-  }
 
   onClick() {
-    this.eventEmitter.emit({type: "click", "data": "button was clicked!"})
+    this.eventEmitter.emit(new ButtonClickEvent("button click!!"))
   }
-
-
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseDynamicComponent} from "../BaseDynamicComponent";
+import {ButtonClickEvent, OnButtonClickListener} from "../events";
 
 
 class Compponent1Data {
@@ -12,7 +13,7 @@ class Compponent1Data {
   templateUrl: 'view1.component.html',
   styleUrls: ['view1.component.css']
 })
-export class View1Component extends BaseDynamicComponent implements OnInit {
+export class View1Component extends BaseDynamicComponent implements OnInit , OnButtonClickListener {
 
   text = ""
   data
@@ -25,10 +26,10 @@ export class View1Component extends BaseDynamicComponent implements OnInit {
     console.log(  this.data.showNum)
   }
 
-  onEvent(event : any){
-    if(event.type == "click"){
-      this.text = "button clicked!"
-    }
+  onButtonClick(event: ButtonClickEvent){
+    console.log(event.text)
+    console.log("got event!: " + event.text)
+    this.text = event.text;
   }
 
 }

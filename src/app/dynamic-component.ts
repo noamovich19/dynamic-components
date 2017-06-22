@@ -6,6 +6,7 @@ import {View1Component} from "./view1/view1.component";
 import {BaseDynamicComponent} from "./BaseDynamicComponent";
 import {View2Component} from "./view2/view2.component";
 import {Subject} from "rxjs";
+import {isOnButtonClickListener} from "./events";
 
 
 @Component({
@@ -16,7 +17,7 @@ import {Subject} from "rxjs";
   `,
 })
 export default class DynamicComponent {
-  @Input() notifyAllComponents :Subject<any>;
+  @Input() notifyComponents :Subject<any>;
 
   currentComponent = null;
 
@@ -34,8 +35,8 @@ export default class DynamicComponent {
     let component = factory.create(injector);
     let instance = <BaseDynamicComponent> component.instance;
     instance.context = data.inputs;
-    instance.eventEmitter.subscribe(event=> {this.notifyAllComponents.next(event)});
-    this.notifyAllComponents.subscribe(instance.onEvent.bind(instance))
+    instance.eventEmitter.subscribe(event=> {this.notifyComponents.next(event)});
+    this.subscribeComponentToEvents(instance)
 
     this.dynamicComponentContainer.insert(component.hostView);
 
@@ -53,6 +54,16 @@ export default class DynamicComponent {
     }
     return componentNameToComponent[componentName];
   }
+
+  subscribeComponentToEvents(componentInstance : any){
+    if (isOnButtonClickListener(componentInstance)){
+      this.notifyComponents.subscribe(componentInstance.onButtonClick.bind(componentInstance))
+    }
+  }
+
+  setComponentEventEmitters
+
+
 
   constructor(private resolver: ComponentFactoryResolver) {
 
