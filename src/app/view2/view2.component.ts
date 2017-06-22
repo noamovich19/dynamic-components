@@ -13,7 +13,7 @@ class Compponent1Data {
   selector: 'view2',
   templateUrl: 'view2.component.html',
   styleUrls: ['view2.component.css'],
-  providers: [Router]
+  providers: []
 })
 export class View2Component extends BaseDynamicComponent implements OnInit {
 

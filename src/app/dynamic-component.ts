@@ -12,7 +12,7 @@ import {isOnButtonClickListener} from "./events";
 @Component({
   selector: 'dynamic-component',
   entryComponents: [View1Component , View2Component],
-  template: `
+  template: `  
     <div #dynamicComponentContainer></div>
   `,
 })
