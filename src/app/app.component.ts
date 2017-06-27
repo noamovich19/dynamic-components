@@ -1,28 +1,22 @@
 import {Component} from '@angular/core';
-import {Subject} from "rxjs";
-
+import {Http} from "@angular/http";
+import {Router} from "@angular/router";
+import {ROUTER_PROVIDERS} from "@angular/router/src/router_module";
 
 @Component({
   selector: 'app-root',
   template: `
     <div>
-      <h2>Lets dynamically create some components!</h2>
+      <h2>Lets dynamically create some components!!</h2>
        <dynamic-component
           *ngFor="let componentData of componentList" [componentData]="componentData">
    </dynamic-component>
     </div>
   `,
-
+  providers:[]
 })
 export class AppComponent {
   componentList = [];
-  /*
-   * <dynamic-component
-   *ngFor="let componentData of componentList" [componentData]="componentData"
-   [notifyComponents]="eventSubject"
-   >
-   </dynamic-component>
-   * */
 
   constructor() {
     this.componentList = [

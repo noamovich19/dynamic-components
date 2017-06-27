@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseDynamicComponent} from "../BaseDynamicComponent";
 import {ComponentsEvents} from "../ComponenetsEvents";
+import {Http} from "@angular/http";
+import {MyServiceService} from "../my-service.service";
 
 
 class Compponent1Data {
@@ -17,7 +19,7 @@ export class View1Component extends BaseDynamicComponent implements OnInit  {
 
   text = ""
   data
-  constructor() {
+  constructor(http : Http ,a: MyServiceService) {
     super()
   }
 

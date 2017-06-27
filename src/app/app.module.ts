@@ -1,12 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpModule, Http} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import DynamicComponent from "./dynamic-component";
 import {View1Module} from "./view1/view1.module";
 import {View2Module} from "./view2/view2.module";
+import {RouterModule, Router, Routes} from "@angular/router";
 
 @NgModule({
   declarations: [AppComponent, DynamicComponent ],
@@ -15,9 +16,8 @@ import {View2Module} from "./view2/view2.module";
     View2Module,
     BrowserModule,
     FormsModule,
-    HttpModule
   ],
-  providers: [],
+  providers : [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

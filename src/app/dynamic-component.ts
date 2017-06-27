@@ -1,16 +1,15 @@
 import {
-  Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver,
-  Output, EventEmitter
+  Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver
 } from '@angular/core';
 import {View1Component} from "./view1/view1.component";
 import {BaseDynamicComponent} from "./BaseDynamicComponent";
 import {View2Component} from "./view2/view2.component";
-import {Subject} from "rxjs";
+import {ComponentFactory} from "./ComponentFactory";
 
 
 @Component({
   selector: 'dynamic-component',
-  entryComponents: [View1Component , View2Component],
+  entryComponents: [ComponentFactory.getAllComponents()],
   template: `  
     <div #dynamicComponentContainer></div>
   `,
@@ -26,9 +25,8 @@ export default class DynamicComponent {
       return;
     }
 
-
-    let injector = ReflectiveInjector.fromResolvedProviders([]);
-    let factory = this.resolver.resolveComponentFactory(this.getComponent(data.component))
+    let injector = ReflectiveInjector.resolveAndCreate(ComponentFactory.getProviders(data.component));
+    let factory = this.resolver.resolveComponentFactory(ComponentFactory.getComponent(data.component));
 
     let component = factory.create(injector);
     let instance = <BaseDynamicComponent> component.instance;
@@ -43,13 +41,6 @@ export default class DynamicComponent {
     this.currentComponent = component;
   }
 
-  getComponent(componentName : string) {
-    let componentNameToComponent = {
-      "view1": View1Component,
-      "view2": View2Component,
-    }
-    return componentNameToComponent[componentName];
-  }
 
 
 

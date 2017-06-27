@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseDynamicComponent} from "../BaseDynamicComponent";
-import {Router} from "@angular/router";
 import {ComponentsEvents} from "../ComponenetsEvents";
+import {MyServiceService2} from "../my-service.service";
 
 
 class Compponent1Data {
@@ -19,7 +19,7 @@ export class View2Component extends BaseDynamicComponent implements OnInit {
 
   data
 
-  constructor() {
+  constructor(a : MyServiceService2) {
 
     super()
   }
