@@ -1,9 +1,9 @@
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver
 } from '@angular/core';
-import {View1Component} from "./view1/view1.component";
+import {View1Component} from "../views/view1/view1.component";
 import {BaseDynamicComponent} from "./BaseDynamicComponent";
-import {View2Component} from "./view2/view2.component";
+import {View2Component} from "../views/view2/view2.component";
 import {ComponentFactory} from "./ComponentFactory";
 
 

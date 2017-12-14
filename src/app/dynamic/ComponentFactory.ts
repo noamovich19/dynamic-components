@@ -1,5 +1,5 @@
-import {View1Component} from "./view1/view1.component";
-import {View2Component} from "./view2/view2.component";
+import {View1Component} from "../views/view1/view1.component";
+import {View2Component} from "../views/view2/view2.component";
 import {Http} from "@angular/http";
 import {MyServiceService, MyServiceService2} from "./my-service.service";
 
