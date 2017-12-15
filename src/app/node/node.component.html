@@ -1,0 +1,9 @@
+<div class="dynamic">
+  <h2>Lets dynamically create some components!!</h2>
+
+  <div class="wrapper">
+    <div *ngFor='let componentData of componentList'>
+      <app-dynamic-component [componentData]='componentData'></app-dynamic-component>
+    </div>
+  </div>
+</div>

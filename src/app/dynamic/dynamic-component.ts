@@ -25,11 +25,11 @@ export default class DynamicComponent {
       return;
     }
 
-    let injector = ReflectiveInjector.resolveAndCreate(ComponentFactory.getProviders(data.component));
-    let factory = this.resolver.resolveComponentFactory(ComponentFactory.getComponent(data.component));
+    const injector = ReflectiveInjector.resolveAndCreate(ComponentFactory.getProviders(data.component));
+    const factory = this.resolver.resolveComponentFactory(ComponentFactory.getComponent(data.component));
 
-    let component = factory.create(injector);
-    let instance = <BaseDynamicComponent> component.instance;
+    const component = factory.create(injector);
+    const instance = <BaseDynamicComponent> component.instance;
     instance.context = data.inputs;
 
     this.dynamicComponentContainer.insert(component.hostView);
@@ -40,8 +40,6 @@ export default class DynamicComponent {
 
     this.currentComponent = component;
   }
-
-
 
 
 
