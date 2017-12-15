@@ -31,14 +31,4 @@ export class ComponentFactory {
     });
   }
 
-  public static getAllServices() {
-    const allServices = [];
-    Object.keys(ComponentFactory.componentData).map(componentName => {
-      ComponentFactory.componentData[componentName]['services'].map(service => {
-        allServices.push(service);
-      });
-    });
-    return allServices;
-  }
-
 }

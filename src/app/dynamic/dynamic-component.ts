@@ -1,14 +1,12 @@
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver
 } from '@angular/core';
-import {View1Component} from "../views/view1/view1.component";
-import {BaseDynamicComponent} from "./BaseDynamicComponent";
-import {View2Component} from "../views/view2/view2.component";
-import {ComponentFactory} from "./ComponentFactory";
+import {BaseDynamicComponent} from './BaseDynamicComponent';
+import {ComponentFactory} from './ComponentFactory';
 
 
 @Component({
-  selector: 'dynamic-component',
+  selector: 'app-dynamic-component',
   entryComponents: [ComponentFactory.getAllComponents()],
   template: `  
     <div #dynamicComponentContainer></div>
